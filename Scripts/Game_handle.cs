@@ -25,6 +25,8 @@ public class Game_handle : MonoBehaviour
 
     void Start()
     {
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
         this.carrot.Load_Carrot(this.check_exit_game);
         this.carrot.act_after_delete_all_data=this.Start;
         this.panel_menu.SetActive(true);
@@ -103,17 +105,6 @@ public class Game_handle : MonoBehaviour
 
     private void after_close_setting(List<string> list_change)
     {
-        this.carrot.ads.show_ads_Interstitial();
-        foreach (string s in list_change)
-        {
-            if (s == "list_bk_music") this.carrot.game.load_bk_music(this.sound[0]);
-        }
-
-        if (this.carrot.get_status_sound())
-            this.sound[0].Play();
-        else
-            this.sound[0].Stop();
-
         if (this.panel_play.activeInHierarchy)
         {
             if (this.is_play_p_vs_p)
