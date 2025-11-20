@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class Game_handle : MonoBehaviour
 {
     public Carrot.Carrot carrot;
+    public IronSourceAds ads;
+
     [Header("Game Obj")]
     public ControlIA control_p_vs_ai;
     public Control control_p_vs_p;
@@ -31,6 +33,10 @@ public class Game_handle : MonoBehaviour
         this.carrot.act_after_delete_all_data=this.Start;
         this.panel_menu.SetActive(true);
         this.panel_play.SetActive(false);
+
+        ads.On_Load();
+        carrot.game.act_click_watch_ads_in_music_bk = this.ads.ShowRewardedVideo;
+        ads.onRewardedSuccess += carrot.game.OnRewardedSuccess;
 
         this.control_p_vs_ai.gameObject.SetActive(false);
         this.control_p_vs_p.gameObject.SetActive(false);
@@ -81,7 +87,7 @@ public class Game_handle : MonoBehaviour
 
     public void btn_replay()
     {
-        this.carrot.ads.show_ads_Interstitial();
+        this.ads.show_ads_Interstitial();
         if (this.is_play_p_vs_p)
             this.btn_play_two_game();
         else
@@ -91,7 +97,7 @@ public class Game_handle : MonoBehaviour
 
     public void btn_show_setting()
     {
-        this.carrot.ads.show_ads_Interstitial();
+        this.ads.show_ads_Interstitial();
         if (this.panel_play.activeInHierarchy)
         {
             if (this.is_play_p_vs_p)
@@ -116,7 +122,7 @@ public class Game_handle : MonoBehaviour
 
     public void btn_back_home()
     {
-        this.carrot.ads.show_ads_Interstitial();
+        this.ads.show_ads_Interstitial();
         this.carrot.play_sound_click();
         this.panel_menu.SetActive(true);
         this.panel_play.SetActive(false);
